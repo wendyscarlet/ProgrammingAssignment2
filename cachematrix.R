@@ -1,5 +1,5 @@
 ## Creates a special "matrix" object that can cache its inverse. It is a list of functions that allow to set and get the value of the matrix
-##and the value of the inverse matrix
+##and the value of the  matrix inverse
 
 makeCacheMatrix <- function(originalMatrix = matrix()) {
     inversedMatrix <- NULL
@@ -13,32 +13,32 @@ makeCacheMatrix <- function(originalMatrix = matrix()) {
     ## Get the value of the matrix
     get <- function() originalMatrix
     
-    ## Set the value of the inverse of a matrix
-    setInversed <- function(matrix) inversedMatrix <<- matrix
+    ## Set the value of the  matrix inverse
+    setInverse <- function(matrix) inversedMatrix <<- matrix
     
-    ## Get the value of the inverse of a matrix 
-    getInversed <- function() inversedMatrix
+    ## Get the value of the matrix inverse
+    getInverse <- function() inversedMatrix
     list(set = set, get = get,
-         setInversed = setInversed,
-         getInversed = getInversed)
+         setInverse = setInverse,
+         getInverse = getInverse)
 }
 
-## Return a matrix that is the inverse of 'matrix'
-inverseMatrix <- function(matrix, ...) { 
-    inversedMatrix <-matrix$getInversed()
+## Stores in the cache and returns the matrix inverse 
+cacheSolve <- function(matrix, ...) { 
+    inversedMatrix <-matrix$getInverse()
    
-    ##If  inversedMatrix is not null return the value stored in cache
+    ##If we have the matrix inverse in the cache
     if(!is.null(inversedMatrix)) {
         message("getting data from cache")
         return(inversedMatrix)
     }
-    ##Else we have to calculate the inverse of the matrix
-    message("calculating the inverse of the matrix")
-    ##First we get the matrix to invert
+    ##Else we have to calculate the matrix inverse
+    message("calculating the matrix inverse")
+    ##First we get the matrix to inverse
     data <- matrix$get()
-    ##Invert the matrix using the solve function
+    ##Inverse the matrix using the solve function
     inversedMatrix<- solve(data, ...)
     ##Store the inversed matrix in the cache
-    matrix$setInversed(inversedMatrix)
+    matrix$setInverse(inversedMatrix)
     inversedMatrix
 }
