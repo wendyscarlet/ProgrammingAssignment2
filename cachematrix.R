@@ -1,6 +1,4 @@
-## Creates a special "matrix" object that can cache its inverse. It is a list of functions that allow to set and get the value of the matrix
-##and the value of the  matrix inverse
-
+## Creates a special "matrix" object that store a matrix and  cache its inverse. 
 makeCacheMatrix <- function(originalMatrix = matrix()) {
     inversedMatrix <- NULL
     
@@ -18,6 +16,7 @@ makeCacheMatrix <- function(originalMatrix = matrix()) {
     
     ## Get the value of the matrix inverse
     getInverse <- function() inversedMatrix
+    
     list(set = set, get = get,
          setInverse = setInverse,
          getInverse = getInverse)
@@ -34,11 +33,8 @@ cacheSolve <- function(matrix, ...) {
     }
     ##Else we have to calculate the matrix inverse
     message("calculating the matrix inverse")
-    ##First we get the matrix to inverse
-    data <- matrix$get()
-    ##Inverse the matrix using the solve function
-    inversedMatrix<- solve(data, ...)
-    ##Store the inversed matrix in the cache
-    matrix$setInverse(inversedMatrix)
+    data <- matrix$get()              ##First we get the matrix to inverse   
+    inversedMatrix<- solve(data, ...) ##Inverse the matrix using the solve function
+    matrix$setInverse(inversedMatrix) ##Store the inversed matrix in the cache
     inversedMatrix
 }
